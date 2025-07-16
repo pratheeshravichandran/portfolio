@@ -226,7 +226,7 @@ const Portfolio = () => {
         "Developed a hybrid simulation and machine learning system using NS-3 and models like SVR, Random Forest, and CatBoost to predict node transmission ranges in WSNs.",
       tech: ["Python", "NS-3", "SVR", "Random Forest", "CatBoost"],
       image: "https://images.unsplash.com/photo-1581091215367-3bba512f6e5f?w=400&h=250&fit=crop",
-      github: "#",
+      github: "https://github.com/pratheeshravichandran/Node-Localization-using-ML-in-Wireless-Sensor-Networks",
       live: "#",
     },
     {
@@ -253,7 +253,7 @@ const Portfolio = () => {
         "Developed a modern staff management platform with role-based controls, dynamic dashboards, and responsive design using React, Tailwind CSS, and Laravel.",
       tech: ["React", "Tailwind CSS", "Laravel", "MySQL"],
       image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&h=250&fit=crop",
-      github: "#",
+      github: "https://github.com/pratheeshravichandran/staff-management-system",
       live: "#",
     },
     {
@@ -629,14 +629,19 @@ const Portfolio = () => {
 
               {/* Download CV Button */}
               <div className="pl-8 pt-4">
-                <button className="group relative px-6 py-3 bg-[#80ed99] text-[#111111] rounded-full overflow-hidden transition-all duration-300 transform hover:scale-105 hover:shadow-xl animate-pulse-ripple font-semibold">
-                  <span className="relative z-10 flex items-center gap-2">
-                    <Download className="w-5 h-5" />
-                    Download Resume
-                  </span>
-                  <div className="absolute inset-0 bg-[#f4a261] opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                </button>
-              </div>
+  <a
+    href="/Pratheesh R .pdf"
+    download="Pratheesh_Resume.pdf"
+    className="group relative inline-block px-6 py-3 bg-[#80ed99] text-[#111111] rounded-full overflow-hidden transition-all duration-300 transform hover:scale-105 hover:shadow-xl animate-pulse-ripple font-semibold"
+  >
+    <span className="relative z-10 flex items-center gap-2">
+      <Download className="w-5 h-5" />
+      Download Resume
+    </span>
+    <div className="absolute inset-0 bg-[#f4a261] opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+  </a>
+</div>
+
             </div>
 
             <div className="relative animate-fade-up" style={{ animationDelay: "0.4s" }}>
@@ -782,11 +787,6 @@ const Portfolio = () => {
               <div key={index} className="group animate-fade-up" style={{ animationDelay: `${index * 0.1}s` }}>
                 <div className="bg-[#eaddca]/50 backdrop-blur-sm border border-[#f4d58d]/50 rounded-2xl overflow-hidden hover:bg-[#eaddca]/70 hover:shadow-xl hover:shadow-[#f77f00]/10 transition-all duration-300 animate-tilt-hover hover-lift">
                   <div className="relative overflow-hidden">
-                    <img
-                      src={project.image || "/placeholder.svg"}
-                      alt={project.title}
-                      className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-300"
-                    />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
                     <div className="absolute top-4 right-4 flex gap-2">
                       <a
