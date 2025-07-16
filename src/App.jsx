@@ -30,7 +30,7 @@ const Portfolio = () => {
   const [typedText, setTypedText] = useState("")
   const [currentJobIndex, setCurrentJobIndex] = useState(0)
 
-  const jobTitles = ["Full Stack Developer", "React Specialist", "PHP Laravel Developer", "MySql"]
+  const jobTitles = ["Full Stack Developer", "React JS", "PHP Laravel Developer", "MySql"]
 
   // Typing animation effect
   useEffect(() => {
