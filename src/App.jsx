@@ -22,6 +22,8 @@ import {
   Building,
   Globe,
 } from 'lucide-react';
+import emailjs from 'emailjs-com'
+import { toast } from 'react-toastify'
 
 const Portfolio = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -347,13 +349,29 @@ const Portfolio = () => {
       setIsMenuOpen(false);
     }
   };
+ // Make sure you installed react-toastify
 
-  const handleFormSubmit = (e) => {
-    e.preventDefault();
-    // Handle form submission
-    console.log('Form submitted:', formData);
-    setFormData({ name: '', email: '', message: '' });
-  };
+const handleFormSubmit = (e) => {
+  e.preventDefault()
+
+  emailjs.send(
+    'service_zio0z5t',
+    'template_60tmtyc',
+    formData,
+    '_GpYLzK19wK21d1eL'
+  ).then(
+    (result) => {
+      console.log("Email sent:", result.text)
+      alert("✅ Your message was sent!")
+      setFormData({ name: "", email: "", message: "" })
+    },
+    (error) => {
+      console.error("Email error:", error.text)
+      toast.error("❌ Something went wrong. Please try again.")
+    }
+  )
+}
+
 
   const handleInputChange = (e) => {
     setFormData({
@@ -497,17 +515,6 @@ const Portfolio = () => {
                   and optimizing database performance. My experience spans from individual freelance projects to 
                   collaborative team environments, always maintaining high standards of code quality and delivery.
                 </p>
-              </div>
-              
-              <div className="mt-8">
-                <a
-                  href="/Pratheesh R.pdf"
-                  download="Pratheesh_Resume.pdf"
-                  className="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium"
-                >
-                  <Download className="w-5 h-5" />
-                  Download Resume
-                </a>
               </div>
             </div>
 
