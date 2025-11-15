@@ -1,0 +1,24 @@
+src/
+├── components/
+│   ├── Navigation.jsx
+│   ├── Hero.jsx
+│   ├── About.jsx
+│   ├── Skills.jsx
+│   ├── Experience.jsx
+│   ├── Certificates.jsx
+│   ├── Projects.jsx
+│   ├── Contact.jsx
+│   └── Footer.jsx
+├── data/
+│   ├── projects.js
+│   ├── skills.js
+│   ├── experiences.js
+│   └── certificates.js
+├── hooks/
+│   └── useTypingEffect.js
+├── utils/
+│   └── emailService.js
+├── styles/
+│   └── animations.js
+├── App.jsx
+└── main.jsx
