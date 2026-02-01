@@ -107,17 +107,6 @@ const Projects = ({ projects }) => {
                     </span>
                   </div>
                   <div className="flex gap-2">
-                    {project.github && (
-                      <a
-                        href={project.github}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="p-2 bg-gray-800 rounded-lg hover:bg-yellow-500/20 hover:border-yellow-500 border border-gray-700 transition-all duration-300 group/icon"
-                        aria-label="View on GitHub"
-                      >
-                        <Github className="w-5 h-5 text-gray-400 group-hover/icon:text-yellow-500 transition-colors" />
-                      </a>
-                    )}
                     {project.live && (
                       <a
                         href={project.live}

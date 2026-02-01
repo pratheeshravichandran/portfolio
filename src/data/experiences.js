@@ -11,6 +11,6 @@ export const experiences = [
     role: 'Backend Laravel Developer',
     duration: 'Nov 2024 - May 2025',
     location: 'Chennai, Tamil Nadu',
-    type: 'InternShip',
+    type: 'Internship',
   },
 ];

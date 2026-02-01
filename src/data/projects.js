@@ -1,5 +1,13 @@
 export const projects = [
   {
+    title: 'Delivar Seamless Delivery Application',
+    description: 'Deliver Your Parcels, Foods, and More Seamlessly from Pickup Location to Destination by Utilizing Advanced Routing Algorithms and Real-Time Tracking.',
+    tech: ['React', 'Laravel', 'Mysql'],
+    github: '#',
+    live: 'https://delivar.in',
+    category: 'Web/App',
+  },
+  {
     title: 'Assistive Toy – Smart India Hackathon 2024',
     description: 'Led the development of a toy that assists deaf and mute individuals in communication using gesture recognition. Selected as the winning solution in the national Smart India Hackathon 2024.',
     tech: ['Python', 'TensorFlow', 'Flask', 'React', 'Arduino'],
@@ -21,6 +29,6 @@ export const projects = [
     tech: ['Laravel', 'MySQL', 'JWT', 'REST API'],
     github: '#',
     live: '#',
-    category: 'Web App',
+    category: 'Mobile App',
   },
 ];
