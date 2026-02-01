@@ -1,6 +1,8 @@
 import React, { useEffect, useRef } from 'react';
 import { Briefcase, Mail, Github, Linkedin } from 'lucide-react';
-import  anime  from "animejs";
+import anime from "animejs";
+import * as THREE from 'three';
+import { techStack } from '../data/techstacks';
 
 const Hero = ({ scrollToSection }) => {
   const heroRef = useRef(null);
@@ -9,132 +11,260 @@ const Hero = ({ scrollToSection }) => {
   const buttonsRef = useRef(null);
   const socialsRef = useRef(null);
   const animationRef = useRef(null);
+  const threeDRef = useRef(null);
 
-   const techStack = [
-        { 
-          name: 'React', 
-          color: '#61DAFB',
-          svg: '<svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="2"/><path d="M12,10.11C13.03,10.11 13.87,10.95 13.87,12C13.87,13 13.03,13.85 12,13.85C10.97,13.85 10.13,13 10.13,12C10.13,10.95 10.97,10.11 12,10.11M7.37,20C8,20.38 9.38,19.8 10.97,18.3C10.45,17.71 9.94,17.07 9.46,16.4C8.64,16.32 7.83,16.2 7.06,16.04C6.55,18.18 6.74,19.65 7.37,20M8.08,14.26L7.79,13.75C7.68,14.04 7.57,14.33 7.5,14.61C7.77,14.67 8.07,14.72 8.38,14.77C8.28,14.6 8.18,14.43 8.08,14.26M14.62,13.5L15.43,12L14.62,10.5C14.32,9.97 14,9.5 13.71,9.03C13.17,9 12.6,9 12,9C11.4,9 10.83,9 10.29,9.03C10,9.5 9.68,9.97 9.38,10.5L8.57,12L9.38,13.5C9.68,14.03 10,14.5 10.29,14.97C10.83,15 11.4,15 12,15C12.6,15 13.17,15 13.71,14.97C14,14.5 14.32,14.03 14.62,13.5M12,6.78C11.81,7 11.61,7.23 11.41,7.5C11.61,7.5 11.8,7.5 12,7.5C12.2,7.5 12.39,7.5 12.59,7.5C12.39,7.23 12.19,7 12,6.78M12,17.22C12.19,17 12.39,16.77 12.59,16.5C12.39,16.5 12.2,16.5 12,16.5C11.8,16.5 11.61,16.5 11.41,16.5C11.61,16.77 11.81,17 12,17.22M16.62,4C16,3.62 14.62,4.2 13.03,5.7C13.55,6.29 14.06,6.93 14.54,7.6C15.36,7.68 16.17,7.8 16.94,7.96C17.45,5.82 17.26,4.35 16.62,4M15.92,9.74L16.21,10.25C16.32,9.96 16.43,9.67 16.5,9.39C16.23,9.33 15.93,9.28 15.62,9.23C15.72,9.4 15.82,9.57 15.92,9.74M17.37,2.69C18.84,3.53 19,5.74 18.38,8.32C20.92,9.07 22.75,10.31 22.75,12C22.75,13.69 20.92,14.93 18.38,15.68C19,18.26 18.84,20.47 17.37,21.31C15.91,22.15 13.92,21.19 12,19.36C10.08,21.19 8.09,22.15 6.62,21.31C5.16,20.47 5,18.26 5.62,15.68C3.08,14.93 1.25,13.69 1.25,12C1.25,10.31 3.08,9.07 5.62,8.32C5,5.74 5.16,3.53 6.62,2.69C8.09,1.85 10.08,2.81 12,4.64C13.92,2.81 15.91,1.85 17.37,2.69M17.08,12C17.42,12.75 17.72,13.5 17.97,14.26C20.07,13.63 21.25,12.73 21.25,12C21.25,11.27 20.07,10.37 17.97,9.74C17.72,10.5 17.42,11.25 17.08,12M6.92,12C6.58,11.25 6.28,10.5 6.03,9.74C3.93,10.37 2.75,11.27 2.75,12C2.75,12.73 3.93,13.63 6.03,14.26C6.28,13.5 6.58,12.75 6.92,12M15.92,14.26C15.82,14.43 15.72,14.6 15.62,14.77C15.93,14.72 16.23,14.67 16.5,14.61C16.43,14.33 16.32,14.04 16.21,13.75L15.92,14.26M13.03,18.3C14.62,19.8 16,20.38 16.62,20C17.26,19.65 17.45,18.18 16.94,16.04C16.17,16.2 15.36,16.32 14.54,16.4C14.06,17.07 13.55,17.71 13.03,18.3M8.08,9.74C8.18,9.57 8.28,9.4 8.38,9.23C8.07,9.28 7.77,9.33 7.5,9.39C7.57,9.67 7.68,9.96 7.79,10.25L8.08,9.74M10.97,5.7C9.38,4.2 8,3.62 7.37,4C6.74,4.35 6.55,5.82 7.06,7.96C7.83,7.8 8.64,7.68 9.46,7.6C9.94,6.93 10.45,6.29 10.97,5.7Z"/></svg>'
-        },
-        { 
-          name: 'TypeScript', 
-          color: '#3178C6',
-          svg: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M3,3H21V21H3V3M13.71,17.86C14.21,18.84 15.22,19.59 16.8,19.59C18.4,19.59 19.6,18.76 19.6,17.23C19.6,15.82 18.79,15.19 17.35,14.57L16.93,14.39C16.2,14.08 15.89,13.87 15.89,13.37C15.89,12.96 16.2,12.64 16.7,12.64C17.18,12.64 17.5,12.85 17.79,13.37L19.1,12.5C18.55,11.54 17.77,11.17 16.7,11.17C15.19,11.17 14.22,12.13 14.22,13.4C14.22,14.78 15.03,15.43 16.25,15.95L16.67,16.13C17.45,16.47 17.91,16.68 17.91,17.26C17.91,17.74 17.46,18.09 16.76,18.09C15.93,18.09 15.45,17.66 15.09,17.06L13.71,17.86M13,11.25H8V12.75H9.5V20H11.25V12.75H13V11.25Z"/></svg>'
-        },
-        { 
-          name: 'Node.js', 
-          color: '#339933',
-          svg: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12,1.85C11.73,1.85 11.45,1.92 11.22,2.05L3.78,6.35C3.3,6.63 3,7.15 3,7.71V16.29C3,16.85 3.3,17.37 3.78,17.65L5.73,18.77C6.68,19.23 7,19.24 7.44,19.24C8.84,19.24 9.65,18.39 9.65,16.91V8.44C9.65,8.32 9.55,8.22 9.43,8.22H8.5C8.37,8.22 8.27,8.32 8.27,8.44V16.91C8.27,17.57 7.59,18.22 6.5,17.67L4.45,16.5C4.38,16.45 4.34,16.37 4.34,16.29V7.71C4.34,7.62 4.38,7.54 4.45,7.5L11.89,3.21C11.95,3.17 12.05,3.17 12.11,3.21L19.55,7.5C19.62,7.54 19.66,7.62 19.66,7.71V16.29C19.66,16.37 19.62,16.45 19.55,16.5L12.11,20.78C12.05,20.82 11.95,20.82 11.88,20.78L10,19.68C9.92,19.63 9.84,19.62 9.79,19.64C9.26,19.94 9.16,20 8.67,20.15C8.55,20.19 8.36,20.26 8.74,20.47L11.22,21.94C11.46,22.08 11.72,22.15 12,22.15C12.28,22.15 12.54,22.08 12.78,21.94L20.22,17.65C20.7,17.37 21,16.85 21,16.29V7.71C21,7.15 20.7,6.63 20.22,6.35L12.78,2.05C12.55,1.92 12.28,1.85 12,1.85M14.71,12.89C12.94,12.89 12.23,13.59 12.23,14.79C12.23,16.09 13.14,16.54 14.65,16.69C16.55,16.88 16.76,17.26 16.76,17.68C16.76,18.37 16.24,18.65 15.09,18.65C13.58,18.65 13.15,18.3 13,17.35C12.97,17.22 12.86,17.13 12.73,17.13H11.77C11.64,17.13 11.54,17.24 11.54,17.36C11.54,18.55 12.15,20 15.09,20C16.96,20 18.14,19.2 18.14,17.63C18.14,16.32 17.32,15.88 15.5,15.64C13.68,15.4 13.5,15.26 13.5,14.78C13.5,14.36 13.68,13.89 14.71,13.89C15.59,13.89 15.97,14.09 16.19,14.95C16.22,15.06 16.32,15.14 16.43,15.14H17.39C17.46,15.14 17.53,15.11 17.57,15.06C17.62,15 17.63,14.94 17.62,14.87C17.39,13.19 16.34,12.89 14.71,12.89Z"/></svg>'
-        },
-        { 
-          name: 'Express', 
-          color: '#FFD700',
-          svg: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M24,18.59L14.5,8.31L15.78,6.59L24,15.84M14.78,21.84L7.5,16.5L0,21.84L7.5,13.03L15,18.38M0,11.06V8.59L7.5,13.84L0,11.06M7.5,2.16L0,7.5L7.5,10.28L15,5L7.5,2.16Z"/></svg>'
-        },
-        { 
-          name: 'Prisma', 
-          color: '#2D3748',
-          svg: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M21.8068 18.2848L13.5528.7565c-.207-.4382-.639-.7273-1.1286-.7541-.5023-.0293-.9523.213-1.2062.6253L2.266 15.1271c-.2773.4518-.2718 1.0091.0158 1.4555l4.3759 6.7786c.2608.4046.7127.6388 1.1823.6388.1332 0 .267-.0188.3987-.0577l12.7019-3.7568c.3891-.1151.7072-.3904.8737-.7553s.1633-.7828-.0075-1.1454zm-1.8481.7519L9.1814 22.2242c-.3292.0975-.6448-.1873-.5756-.5194l3.8501-18.4386c.072-.3448.5486-.3996.699-.0803l7.1288 15.138c.1344.2856-.019.6224-.325.7128z"/></svg>'
-        },
-        { 
-          name: 'GitHub', 
-          color: '#FFFFFF',
-          svg: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12,2A10,10 0 0,0 2,12C2,16.42 4.87,20.17 8.84,21.5C9.34,21.58 9.5,21.27 9.5,21C9.5,20.77 9.5,20.14 9.5,19.31C6.73,19.91 6.14,17.97 6.14,17.97C5.68,16.81 5.03,16.5 5.03,16.5C4.12,15.88 5.1,15.9 5.1,15.9C6.1,15.97 6.63,16.93 6.63,16.93C7.5,18.45 8.97,18 9.54,17.76C9.63,17.11 9.89,16.67 10.17,16.42C7.95,16.17 5.62,15.31 5.62,11.5C5.62,10.39 6,9.5 6.65,8.79C6.55,8.54 6.2,7.5 6.75,6.15C6.75,6.15 7.59,5.88 9.5,7.17C10.29,6.95 11.15,6.84 12,6.84C12.85,6.84 13.71,6.95 14.5,7.17C16.41,5.88 17.25,6.15 17.25,6.15C17.8,7.5 17.45,8.54 17.35,8.79C18,9.5 18.38,10.39 18.38,11.5C18.38,15.32 16.04,16.16 13.81,16.41C14.17,16.72 14.5,17.33 14.5,18.26C14.5,19.6 14.5,20.68 14.5,21C14.5,21.27 14.66,21.59 15.17,21.5C19.14,20.16 22,16.42 22,12A10,10 0 0,0 12,2Z"/></svg>'
-        },
-        { 
-          name: 'Laravel', 
-          color: '#FF2D20',
-          svg: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.641 5.43a.364.364 0 0 1 .013.1v5.157c0 .096-.047.186-.126.239l-4.244 2.45v4.854c0 .096-.047.186-.126.239l-8.829 5.086c-.018.01-.038.015-.058.022-.006.002-.013.006-.02.006-.051.015-.105.015-.156 0-.007 0-.014-.004-.021-.006-.02-.007-.04-.011-.058-.022L.359 18.468c-.079-.052-.126-.143-.126-.239V5.527c0-.034.004-.068.013-.1.003-.012.01-.02.014-.032a.27.27 0 0 1 .056-.084c.008-.01.018-.017.027-.024.014-.013.031-.022.047-.032L4.632 2.79c.079-.052.18-.052.259 0l4.244 2.443c.016.01.033.019.047.032.009.008.019.015.027.024a.27.27 0 0 1 .056.084c.004.012.01.02.014.032.009.032.013.066.013.1v9.434l3.542-2.043V5.527c0-.034.004-.068.013-.1.003-.012.01-.02.014-.032a.27.27 0 0 1 .056-.084c.008-.01.018-.017.027-.024.014-.013.031-.022.047-.032l4.244-2.443c.079-.052.18-.052.259 0l4.244 2.443c.016.01.033.019.047.032.009.008.019.015.027.024a.27.27 0 0 1 .056.084c.004.012.01.02.014.032zM23.078 10.328V5.83l-1.487.857-2.055 1.184v4.498l3.542-2.041zm-4.244 7.282V13.11l-2.021 1.164-6.551 3.775v4.541l8.572-4.94zM1.093 6.057v12.193l8.572 4.94v-4.54l-4.244-2.437-.002-.001-.002-.002-.003-.001c-.016-.01-.031-.022-.044-.035l-.005-.006c-.012-.01-.025-.021-.034-.034-.004-.004-.005-.01-.009-.013a.267.267 0 0 1-.031-.052l-.004-.01a.265.265 0 0 1-.018-.05v-.001c-.003-.014-.003-.027-.004-.041V6.057zm4.375 1.726v4.498l2.055-1.184v-4.498l-2.055 1.184zm13.988-5.53l-3.542 2.041 3.542 2.043 3.542-2.043-3.542-2.041zm-.943 9.434l-2.055-1.184V5.83l1.487-.857 2.055-1.184v4.498l-1.487.857-2.055 1.184zM4.632 3.538L1.09 5.579l3.542 2.043 3.542-2.043-3.542-2.041zm1.487 12.01l2.055 1.184v-4.498l-2.055-1.184v4.498zM19.2 13.11l-3.542 2.043v4.498l2.055-1.184 1.487-.857v-4.5z"/></svg>'
-        },
-        { 
-          name: 'MySQL', 
-          color: '#4479A1',
-          svg: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M16.405 5.501c-.115 0-.193.014-.274.033v.013h.014c.054.104.146.18.214.273.054.107.1.214.154.32l.014-.015c.094-.066.14-.172.14-.333-.04-.047-.046-.094-.08-.14-.04-.067-.126-.1-.18-.153zM5.77 18.695h-.927a50.854 50.854 0 00-.27-4.41h-.008l-1.41 4.41H2.45l-1.4-4.41h-.01a72.892 72.892 0 00-.195 4.41H0c.055-1.966.192-3.81.41-5.53h1.15l1.335 4.064h.008l1.347-4.064h1.095c.242 2.015.384 3.86.428 5.53zm4.017-4.08c-.378 2.045-.876 3.533-1.492 4.46-.482.716-1.01 1.073-1.583 1.073-.153 0-.34-.046-.566-.138v-.494c.11.017.24.026.386.026.268 0 .483-.075.647-.222.197-.18.295-.382.295-.605 0-.155-.077-.47-.23-.944L6.23 14.615h.91l.727 2.36c.164.536.233.91.205 1.123.4-1.064.678-2.227.835-3.483zm12.325 4.08h-2.63v-5.53h.885v4.85h1.745zm-3.32.135l-1.016-.5c.09-.076.177-.158.255-.25.433-.506.648-1.258.648-2.253 0-1.83-.718-2.746-2.155-2.746-.704 0-1.254.232-1.65.697-.43.508-.646 1.256-.646 2.245 0 .972.19 1.686.574 2.14.35.41.877.615 1.583.615.264 0 .506-.033.725-.098l1.325.772.36-.622zM15.5 17.588c-.225-.36-.337-.94-.337-1.736 0-1.393.424-2.09 1.27-2.09.443 0 .77.167.977.5.224.362.336.936.336 1.723 0 1.404-.424 2.108-1.27 2.108-.445 0-.77-.167-.978-.5zm-1.658-.425c0 .47-.172.856-.516 1.156-.344.3-.803.45-1.384.45-.543 0-1.064-.172-1.573-.515l.237-.476c.438.22.833.328 1.19.328.332 0 .593-.073.783-.22.188-.147.3-.354.3-.615 0-.33-.23-.61-.648-.845-.388-.213-1.163-.657-1.163-.657-.422-.307-.632-.636-.632-1.177 0-.45.157-.81.47-1.085.315-.278.72-.415 1.22-.415.512 0 .98.136 1.4.41l-.213.476c-.36-.152-.715-.227-1.064-.227-.283 0-.502.068-.654.206-.153.136-.248.31-.248.524 0 .328.234.61.666.85.393.215 1.187.67 1.187.67.433.305.648.63.648 1.168zm9.382-5.852c-.535-.014-.95.04-1.297.188-.1.04-.26.04-.274.167.055.053.063.14.11.214.08.134.218.313.346.407.14.11.28.216.427.31.26.16.555.255.81.416.145.094.293.213.44.313.073.05.12.14.214.172v-.02c-.046-.06-.06-.147-.105-.214-.067-.067-.134-.127-.2-.193-.2-.267-.46-.5-.732-.67-.21-.125-.66-.31-.76-.55l-.015-.015c.147-.013.32-.066.46-.106.227-.06.435-.047.67-.106.106-.027.213-.06.32-.094v-.06c-.12-.12-.21-.283-.334-.395-.34-.295-.715-.582-1.104-.823-.21-.134-.476-.22-.697-.334-.08-.04-.214-.06-.26-.127-.12-.146-.19-.34-.275-.514-.18-.368-.36-.775-.52-1.16-.08-.193-.115-.193-.6-.254-.447-.073-.99-.042-1.354.116-.12.052-.343.12-.402.214-.06.106.016.213.047.334.014.06.08.16.107.214.06.134.127.28.214.394.06.08.12.166.187.246.014.02.047.027.047.06-.094.106-.1.267-.154.4-.24.757-.146 1.693.194 2.25.107.166.362.534.703.393.3-.12.234-.5.32-.835.02-.08.007-.133.048-.187v.015c.094.188.188.367.274.555.206.328.566.668.867.895.16.12.287.328.487.402v-.02h-.015c-.043-.058-.1-.086-.154-.133-.12-.12-.255-.267-.36-.4-.32-.374-.6-.788-.85-1.214-.11-.2-.22-.42-.313-.63-.033-.073-.033-.2-.106-.24-.1.146-.247.273-.32.453-.12.288-.14.642-.188 1.01-.027.007-.014 0-.027.014-.214-.052-.287-.274-.367-.46-.2-.475-.233-1.238-.06-1.785.047-.14.247-.582.167-.716-.042-.127-.174-.2-.247-.303-.087-.124-.18-.285-.24-.427-.16-.374-.24-.79-.414-1.16-.08-.173-.22-.354-.334-.513-.127-.18-.267-.307-.373-.5-.033-.073-.08-.194-.027-.274.014-.054.042-.075.094-.09.088-.072.335.022.422.062.247.1.455.194.662.334.094.066.195.193.315.226h.14c.214.047.455.014.655.073.355.114.655.28.962.46.876.564 1.597 1.376 2.036 2.335.047.1.062.194.11.295.093.188.213.382.32.57.107.2.213.404.34.6.073.1.194.154.226.294-.12.174-.133.4-.2.596-.27.823-.17 1.854.18 2.48.093.16.313.5.6.36.26-.115.2-.476.274-.73.02-.06.006-.08.033-.114v.02c.094.188.188.367.274.555.206.328.566.668.867.895.16.12.288.328.488.402v-.02h-.016c-.042-.058-.1-.086-.153-.133-.12-.12-.255-.267-.36-.4-.32-.374-.6-.788-.85-1.214-.11-.2-.22-.42-.313-.63-.033-.073-.033-.2-.106-.24-.1.146-.247.273-.32.453-.12.288-.14.642-.188 1.01-.027.007-.014 0-.027.014-.214-.052-.287-.274-.367-.46-.2-.475-.233-1.238-.06-1.785.047-.14.247-.582.167-.716-.042-.127-.174-.2-.247-.303-.087-.124-.18-.285-.24-.427-.16-.374-.24-.79-.414-1.16-.08-.173-.22-.354-.334-.513-.127-.18-.267-.307-.373-.5-.033-.073-.08-.194-.027-.274.014-.054.042-.075.094-.09.088-.072.335.022.422.062.247.1.455.194.662.334.094.066.195.193.315.226h.14c.214.047.455.014.655.073.355.114.655.28.962.46.876.564 1.597 1.376 2.036 2.335.047.1.062.194.11.295.093.188.213.382.32.57.107.2.213.404.34.6.073.1.194.154.226.294-.12.174-.133.4-.2.596-.27.823-.17 1.854.18 2.48.093.16.313.5.6.36.26-.115.2-.476.274-.73.02-.06.006-.08.033-.114v.02c.094.188.188.367.274.555.206.328.566.668.867.895.16.12.288.328.488.402v-.02h-.016c-.042-.058-.1-.086-.153-.133-.12-.12-.255-.267-.36-.4-.32-.374-.6-.788-.85-1.214-.11-.2-.22-.42-.313-.63-.033-.073-.033-.2-.106-.24-.1.146-.247.273-.32.453-.12.288-.14.642-.188 1.01-.027.007-.014 0-.027.014-.214-.052-.287-.274-.367-.46-.2-.475-.233-1.238-.06-1.785.047-.14.247-.582.167-.716-.042-.127-.174-.2-.247-.303-.087-.124-.18-.285-.24-.427-.16-.374-.24-.79-.414-1.16-.08-.173-.22-.354-.334-.513-.127-.18-.267-.307-.373-.5-.033-.073-.08-.194-.027-.274.014-.054.042-.075.094-.09.088-.072.335.022.422.062.247.1.455.194.662.334.094.066.195.193.315.226h.14c.214.047.455.014.655.073.355.114.655.28.962.46.876.564 1.597 1.376 2.036 2.335.047.1.062.194.11.295.093.188.213.382.32.57.107.2.213.404.34.6.073.1.194.154.226.294-.12.174-.133.4-.2.596-.27.823-.17 1.854.18 2.48.093.16.313.5.6.36.26-.115.2-.476.274-.73.02-.06.006-.08.033-.114v.02zm8.74-8.9c-.535-.014-.95.04-1.297.188-.1.04-.26.04-.274.167.055.053.063.14.11.214.08.134.218.313.346.407.14.11.28.216.427.31.26.16.555.255.81.416.145.094.293.213.44.313.073.05.12.14.214.172v-.02c-.046-.06-.06-.147-.105-.214-.067-.067-.134-.127-.2-.193-.2-.267-.46-.5-.732-.67-.21-.125-.66-.31-.76-.55l-.015-.015c.147-.013.32-.066.46-.106.227-.06.435-.047.67-.106.106-.027.213-.06.32-.094v-.06c-.12-.12-.21-.283-.334-.395-.34-.295-.715-.582-1.104-.823-.21-.134-.476-.22-.697-.334-.08-.04-.214-.06-.26-.127-.12-.146-.19-.34-.275-.514-.18-.368-.36-.775-.52-1.16-.08-.193-.115-.193-.6-.254-.447-.073-.99-.042-1.354.116-.12.052-.343.12-.402.214-.06.106.016.213.047.334.014.06.08.16.107.214.06.134.127.28.214.394.06.08.12.166.187.246.014.02.047.027.047.06-.094.106-.1.267-.154.4-.24.757-.146 1.693.194 2.25.107.166.362.534.703.393.3-.12.234-.5.32-.835.02-.08.007-.133.048-.187v.015c.094.188.188.367.274.555.206.328.566.668.867.895.16.12.287.328.487.402v-.02h-.015c-.043-.058-.1-.086-.154-.133-.12-.12-.255-.267-.36-.4-.32-.374-.6-.788-.85-1.214-.11-.2-.22-.42-.313-.63-.033-.073-.033-.2-.106-.24-.1.146-.247.273-.32.453-.12.288-.14.642-.188 1.01-.027.007-.014 0-.027.014-.214-.052-.287-.274-.367-.46-.2-.475-.233-1.238-.06-1.785.047-.14.247-.582.167-.716-.042-.127-.174-.2-.247-.303-.087-.124-.18-.285-.24-.427-.16-.374-.24-.79-.414-1.16-.08-.173-.22-.354-.334-.513-.127-.18-.267-.307-.373-.5-.033-.073-.08-.194-.027-.274.014-.054.042-.075.094-.09.088-.072.335.022.422.062.247.1.455.194.662.334.094.066.195.193.315.226h.14c.214.047.455.014.655.073.355.114.655.28.962.46.876.564 1.597 1.376 2.036 2.335.047.1.062.194.11.295.093.188.213.382.32.57.107.2.213.404.34.6.073.1.194.154.226.294-.12.174-.133.4-.2.596-.27.823-.17 1.854.18 2.48.093.16.313.5.6.36.26-.115.2-.476.274-.73.02-.06.006-.08.033-.114v.02c.094.188.188.367.274.555.206.328.566.668.867.895.16.12.288.328.488.402v-.02h-.016c-.042-.058-.1-.086-.153-.133-.12-.12-.255-.267-.36-.4-.32-.374-.6-.788-.85-1.214-.11-.2-.22-.42-.313-.63-.033-.073-.033-.2-.106-.24-.1.146-.247.273-.32.453-.12.288-.14.642-.188 1.01-.027.007-.014 0-.027.014-.214-.052-.287-.274-.367-.46-.2-.475-.233-1.238-.06-1.785.047-.14.247-.582.167-.716-.042-.127-.174-.2-.247-.303-.087-.124-.18-.285-.24-.427-.16-.374-.24-.79-.414-1.16-.08-.173-.22-.354-.334-.513-.127-.18-.267-.307-.373-.5-.033-.073-.08-.194-.027-.274.014-.054.042-.075.094-.09.088-.072.335.022.422.062.247.1.455.194.662.334.094.066.195.193.315.226h.14c.214.047.455.014.655.073.355.114.655.28.962.46.876.564 1.597 1.376 2.036 2.335.047.1.062.194.11.295.093.188.213.382.32.57.107.2.213.404.34.6.073.1.194.154.226.294-.12.174-.133.4-.2.596-.27.823-.17 1.854.18 2.48.093.16.313.5.6.36.26-.115.2-.476.274-.73.02-.06.006-.08.033-.114v.02c.094.188.188.367.274.555.206.328.566.668.867.895.16.12.288.328.488.402v-.02h-.016c-.042-.058-.1-.086-.153-.133-.12-.12-.255-.267-.36-.4-.32-.374-.6-.788-.85-1.214-.11-.2-.22-.42-.313-.63-.033-.073-.033-.2-.106-.24-.1.146-.247.273-.32.453-.12.288-.14.642-.188 1.01-.027.007-.014 0-.027.014-.214-.052-.287-.274-.367-.46-.2-.475-.233-1.238-.06-1.785.047-.14.247-.582.167-.716-.042-.127-.174-.2-.247-.303-.087-.124-.18-.285-.24-.427-.16-.374-.24-.79-.414-1.16-.08-.173-.22-.354-.334-.513-.127-.18-.267-.307-.373-.5-.033-.073-.08-.194-.027-.274.014-.054.042-.075.094-.09.088-.072.335.022.422.062.247.1.455.194.662.334.094.066.195.193.315.226h.14c.214.047.455.014.655.073.355.114.655.28.962.46.876.564 1.597 1.376 2.036 2.335.047.1.062.194.11.295.093.188.213.382.32.57.107.2.213.404.34.6.073.1.194.154.226.294-.12.174-.133.4-.2.596-.27.823-.17 1.854.18 2.48.093.16.313.5.6.36.26-.115.2-.476.274-.73.02-.06.006-.08.033-.114v.02z"/></svg>'
-        },
-        { 
-          name: 'HTML5', 
-          color: '#E34F26',
-          svg: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M1.5 0h21l-1.91 21.563L11.977 24l-8.564-2.438L1.5 0zm7.031 9.75l-.232-2.718 10.059.003.23-2.622L5.412 4.41l.698 8.01h9.126l-.326 3.426-2.91.804-2.955-.81-.188-2.11H6.248l.33 4.171L12 19.351l5.379-1.443.744-8.157H8.531z"/></svg>'
-        },
-        { 
-          name: 'CSS3', 
-          color: '#1572B6',
-          svg: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M1.5 0h21l-1.91 21.563L11.977 24l-8.565-2.438L1.5 0zm17.09 4.413L5.41 4.41l.213 2.622 10.125.002-.255 2.716h-6.64l.24 2.573h6.182l-.366 3.523-2.91.804-2.956-.81-.188-2.11h-2.61l.29 3.855L12 19.288l5.373-1.53L18.59 4.414z"/></svg>'
-        },
-        {
-          name: 'Linux',
-          color: '#FCC624', 
-          svg: '<svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"> <path d="M12 2c-2.21 0-4 1.79-4 4 0 .5.1.97.27 1.41C6.29 8.56 5 10.61 5 13c0 3.87 3.13 7 7 7s7-3.13 7-7c0-2.39-1.29-4.44-3.27-5.59.17-.44.27-.91.27-1.41 0-2.21-1.79-4-4-4zm-2 4c0-1.1.9-2 2-2s2 .9 2 2c0 .37-.1.71-.27 1.01-.56-.19-1.14-.3-1.73-.3s-1.17.11-1.73.3C10.1 6.71 10 6.37 10 6zm-2.5 6c.83 0 1.5.67 1.5 1.5S8.33 15 7.5 15 6 14.33 6 13.5 6.67 12 7.5 12zm9 0c.83 0 1.5.67 1.5 1.5S17.33 15 16.5 15 15 14.33 15 13.5 15.67 12 16.5 12z"/></svg>'
-        },
-        {
-          name:"Redis",
-          color:"#fc2424ff",
-          svg:'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="currentColor"><path d="M30.93 14.93c-0.688 0.359-4.281 2.031-5.203 2.469-0.916 0.438-1.437 0.438-2.25 0.031s-6.266-2.531-6.891-2.797c-0.62-0.266-0.995-0.438-0.995-0.703s0.375-0.438 0.995-0.703c0.625-0.266 6.078-2.391 6.891-2.797 0.813-0.406 1.333-0.406 2.25 0.031s4.516 2.109 5.203 2.469c0.688 0.359 0.688 0.625 0 0.984zM30.93 19.641c-0.688 0.359-4.281 2.031-5.203 2.469-0.916 0.438-1.437 0.438-2.25 0.031s-6.266-2.531-6.891-2.797c-0.62-0.266-0.995-0.438-0.995-0.703s0.375-0.438 0.995-0.703c0.625-0.266 6.078-2.391 6.891-2.797 0.813-0.406 1.333-0.406 2.25 0.031s4.516 2.109 5.203 2.469c0.688 0.359 0.688 0.625 0 0.984zM30.93 10.219c-0.688 0.359-4.281 2.031-5.203 2.469-0.916 0.438-1.437 0.438-2.25 0.031s-6.266-2.531-6.891-2.797c-0.62-0.266-0.995-0.438-0.995-0.703s0.375-0.438 0.995-0.703c0.625-0.266 6.078-2.391 6.891-2.797 0.813-0.406 1.333-0.406 2.25 0.031s4.516 2.109 5.203 2.469c0.688 0.359 0.688 0.625 0 0.984zM14.484 19.484l5.688-1.172 6.156 2.578-5.859 1.156zM25.953 17.234l-6.141-2.578 5.516-1.125 6.297 2.516zM1.078 17.328c-0.688 0.359-0.688 0.625 0 0.984s4.281 2.031 5.203 2.469c0.916 0.438 1.438 0.438 2.25 0.031s6.266-2.531 6.891-2.797c0.625-0.266 1-0.438 1-0.703s-0.375-0.438-1-0.703c-0.625-0.266-6.078-2.391-6.891-2.797-0.813-0.406-1.333-0.406-2.25 0.031s-4.516 2.109-5.203 2.469zM1.078 12.609c-0.688 0.359-0.688 0.625 0 0.984s4.281 2.031 5.203 2.469c0.916 0.438 1.438 0.438 2.25 0.031s6.266-2.531 6.891-2.797c0.625-0.266 1-0.438 1-0.703s-0.375-0.438-1-0.703c-0.625-0.266-6.078-2.391-6.891-2.797-0.813-0.406-1.333-0.406-2.25 0.031s-4.516 2.109-5.203 2.469zM1.078 22.047c-0.688 0.359-0.688 0.625 0 0.984s4.281 2.031 5.203 2.469c0.916 0.438 1.438 0.438 2.25 0.031s6.266-2.531 6.891-2.797c0.625-0.266 1-0.438 1-0.703s-0.375-0.438-1-0.703c-0.625-0.266-6.078-2.391-6.891-2.797-0.813-0.406-1.333-0.406-2.25 0.031s-4.516 2.109-5.203 2.469z" fill="#DC382D"/></svg>'
-        },
-        {
-          name: 'Tailwind',
-          color: '#1572B6',
-          svg: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="currentColor"><path d="M9,13.7q1.4-5.6,7-5.6c5.6,0,6.3,4.2,9.1,4.9q2.8.7,4.9-2.1-1.4,5.6-7,5.6c-5.6,0-6.3-4.2-9.1-4.9Q11.1,10.9,9,13.7ZM2,22.1q1.4-5.6,7-5.6c5.6,0,6.3,4.2,9.1,4.9q2.8.7,4.9-2.1-1.4,5.6-7,5.6c-5.6,0-6.3-4.2-9.1-4.9Q4.1,19.3,2,22.1Z" fill="#06B6D4"/></svg>'
+  // Three.js 3D Animation
+  const create3DAnimation = () => {
+    const container = threeDRef.current;
+    if (!container) return;
+
+    // Scene setup
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(
+      75,
+      container.clientWidth / container.clientHeight,
+      0.1,
+      1000
+    );
+    camera.position.z = 5;
+
+    const renderer = new THREE.WebGLRenderer({ 
+      alpha: true, 
+      antialias: true 
+    });
+    renderer.setSize(container.clientWidth, container.clientHeight);
+    renderer.setClearColor(0x000000, 0);
+    container.appendChild(renderer.domElement);
+
+    // Lighting
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+    scene.add(ambientLight);
+
+    const pointLight1 = new THREE.PointLight(0x00ff88, 1);
+    pointLight1.position.set(5, 5, 5);
+    scene.add(pointLight1);
+
+    const pointLight2 = new THREE.PointLight(0xff00ff, 1);
+    pointLight2.position.set(-5, -5, 5);
+    scene.add(pointLight2);
+
+    // Create floating code symbols
+    const codeSymbols = [];
+    const symbols = ['{ }', '< >', '[ ]', '( )', '/>', '===', '=>', 'fn', 'var', 'let'];
+    
+    for (let i = 0; i < 30; i++) {
+      const canvas = document.createElement('canvas');
+      const context = canvas.getContext('2d');
+      canvas.width = 128;
+      canvas.height = 128;
+      
+      context.fillStyle = '#ffffff';
+      context.font = 'bold 48px monospace';
+      context.textAlign = 'center';
+      context.textBaseline = 'middle';
+      context.fillText(symbols[Math.floor(Math.random() * symbols.length)], 64, 64);
+      
+      const texture = new THREE.CanvasTexture(canvas);
+      const material = new THREE.SpriteMaterial({ 
+        map: texture, 
+        transparent: true,
+        opacity: 0.6
+      });
+      const sprite = new THREE.Sprite(material);
+      
+      sprite.position.set(
+        (Math.random() - 0.5) * 10,
+        (Math.random() - 0.5) * 10,
+        (Math.random() - 0.5) * 10
+      );
+      sprite.scale.set(0.5, 0.5, 0.5);
+      
+      sprite.userData = {
+        velocity: {
+          x: (Math.random() - 0.5) * 0.02,
+          y: (Math.random() - 0.5) * 0.02,
+          z: (Math.random() - 0.5) * 0.02
         }
+      };
+      
+      scene.add(sprite);
+      codeSymbols.push(sprite);
+    }
 
-  ];
+    // Create central geometric shape (dodecahedron)
+    const geometry = new THREE.DodecahedronGeometry(1.5, 0);
+    const edges = new THREE.EdgesGeometry(geometry);
+    const lineMaterial = new THREE.LineBasicMaterial({ 
+      color: 0x00ffaa,
+      linewidth: 2
+    });
+    const wireframe = new THREE.LineSegments(edges, lineMaterial);
+    scene.add(wireframe);
+
+    // Create inner rotating cube
+    const cubeGeometry = new THREE.BoxGeometry(1, 1, 1);
+    const cubeEdges = new THREE.EdgesGeometry(cubeGeometry);
+    const cubeMaterial = new THREE.LineBasicMaterial({ 
+      color: 0xff00ff,
+      linewidth: 2
+    });
+    const cube = new THREE.LineSegments(cubeEdges, cubeMaterial);
+    scene.add(cube);
+
+    // Create particles
+    const particlesGeometry = new THREE.BufferGeometry();
+    const particlesCount = 1000;
+    const positions = new Float32Array(particlesCount * 3);
+    
+    for (let i = 0; i < particlesCount * 3; i++) {
+      positions[i] = (Math.random() - 0.5) * 20;
+    }
+    
+    particlesGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+    const particlesMaterial = new THREE.PointsMaterial({
+      color: 0xffffff,
+      size: 0.02,
+      transparent: true,
+      opacity: 0.6
+    });
+    const particles = new THREE.Points(particlesGeometry, particlesMaterial);
+    scene.add(particles);
+
+    // Animation loop
+    let mouseX = 0;
+    let mouseY = 0;
+
+    const onMouseMove = (event) => {
+      mouseX = (event.clientX / window.innerWidth) * 2 - 1;
+      mouseY = -(event.clientY / window.innerHeight) * 2 + 1;
+    };
+
+    window.addEventListener('mousemove', onMouseMove);
+
+    const animate = () => {
+      requestAnimationFrame(animate);
+
+      // Rotate main shapes
+      wireframe.rotation.x += 0.005;
+      wireframe.rotation.y += 0.005;
+
+      cube.rotation.x -= 0.01;
+      cube.rotation.y -= 0.01;
+
+      // Rotate particles
+      particles.rotation.y += 0.001;
+
+      // Animate code symbols
+      codeSymbols.forEach(sprite => {
+        sprite.position.x += sprite.userData.velocity.x;
+        sprite.position.y += sprite.userData.velocity.y;
+        sprite.position.z += sprite.userData.velocity.z;
+
+        // Boundary check
+        if (Math.abs(sprite.position.x) > 5) sprite.userData.velocity.x *= -1;
+        if (Math.abs(sprite.position.y) > 5) sprite.userData.velocity.y *= -1;
+        if (Math.abs(sprite.position.z) > 5) sprite.userData.velocity.z *= -1;
+
+        sprite.rotation.z += 0.01;
+      });
+
+      // Mouse interaction
+      camera.position.x += (mouseX * 0.5 - camera.position.x) * 0.05;
+      camera.position.y += (mouseY * 0.5 - camera.position.y) * 0.05;
+      camera.lookAt(scene.position);
+
+      renderer.render(scene, camera);
+    };
+
+    animate();
+
+    // Handle resize
+    const handleResize = () => {
+      camera.aspect = container.clientWidth / container.clientHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(container.clientWidth, container.clientHeight);
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    // Cleanup
+    return () => {
+      window.removeEventListener('mousemove', onMouseMove);
+      window.removeEventListener('resize', handleResize);
+      container.removeChild(renderer.domElement);
+    };
+  };
 
   const createFloatingLogos = () => {
-  const container = animationRef.current;
-  if (!container) return;
+    const container = animationRef.current;
+    if (!container) return;
 
-  container.innerHTML = '';
+    container.innerHTML = '';
 
-  const centerX = 50; // Center X percentage
-  const centerY = 50; // Center Y percentage
-  const radius = 35; // Radius of the circle in percentage
-  const angleStep = (360 / techStack.length); // Equal spacing around circle
+    const createLogoSet = () => {
+      const logoSet = document.createElement('div');
+      logoSet.className = 'logo-set';
+      logoSet.style.display = 'inline-flex';
+      logoSet.style.alignItems = 'center';
+      logoSet.style.gap = '4rem';
+      logoSet.style.paddingRight = '4rem';
 
-  techStack.forEach((tech, index) => {
-    const logo = document.createElement('div');
-    logo.className = 'floating-logo';
+      techStack.forEach((tech) => {
+        const logoWrapper = document.createElement('div');
+        logoWrapper.className = 'floating-logo';
+        logoWrapper.style.display = 'flex';
+        logoWrapper.style.flexDirection = 'column';
+        logoWrapper.style.alignItems = 'center';
+        logoWrapper.style.gap = '0.5rem';
+        logoWrapper.style.flexShrink = '0';
 
-    logo.innerHTML = tech.svg;
-    logo.style.color = tech.color;
+        const logoIcon = document.createElement('div');
+        logoIcon.innerHTML = tech.svg;
+        logoIcon.style.color = tech.color;
+        logoIcon.style.width = '64px';
+        logoIcon.style.height = '64px';
+        logoIcon.style.display = 'flex';
+        logoIcon.style.alignItems = 'center';
+        logoIcon.style.justifyContent = 'center';
+        logoIcon.style.filter = 'drop-shadow(0 0 12px rgba(255,255,255,0.15))';
 
-    const size = 80;
-    logo.style.width = `${size}px`;
-    logo.style.height = `${size}px`;
+        const logoText = document.createElement('div');
+        logoText.textContent = tech.name;
+        logoText.style.color = '#9CA3AF';
+        logoText.style.fontSize = '0.875rem';
+        logoText.style.fontWeight = '500';
+        logoText.style.whiteSpace = 'nowrap';
 
-    logo.style.position = 'absolute';
-    
-    // Calculate initial position on circle
-    const initialAngle = angleStep * index;
-    const initialX = centerX + radius * Math.cos((initialAngle * Math.PI) / 180);
-    const initialY = centerY + radius * Math.sin((initialAngle * Math.PI) / 180);
-    
-    logo.style.left = `${initialX}%`;
-    logo.style.top = `${initialY}%`;
-    logo.style.transform = 'translate(-50%, -50%)'; // Center the logo on its position
+        logoWrapper.appendChild(logoIcon);
+        logoWrapper.appendChild(logoText);
+        logoSet.appendChild(logoWrapper);
+      });
 
-    logo.style.opacity = '0.8';
-    logo.style.filter = 'drop-shadow(0 0 12px rgba(255,255,255,0.15))';
+      return logoSet;
+    };
 
-    container.appendChild(logo);
+    const scrollWrapper = document.createElement('div');
+    scrollWrapper.className = 'scroll-wrapper';
+    scrollWrapper.style.display = 'flex';
+    scrollWrapper.style.alignItems = 'center';
+    scrollWrapper.style.width = 'fit-content';
 
-    // Animate in a circular path
+    scrollWrapper.appendChild(createLogoSet());
+    scrollWrapper.appendChild(createLogoSet());
+
+    container.appendChild(scrollWrapper);
+
+    const logoSetWidth = scrollWrapper.firstChild.offsetWidth;
+
     anime({
-      targets: logo,
-      rotate: 360, // Full rotation
-      duration: 20000, // 20 seconds for one full rotation
+      targets: scrollWrapper,
+      translateX: [-logoSetWidth, 0],
+      duration: 25000,
       easing: 'linear',
       loop: true,
-      delay: 0, // All start together
-      update: function(anim) {
-        const currentAngle = initialAngle + (anim.progress / 100) * 360;
-        const x = centerX + radius * Math.cos((currentAngle * Math.PI) / 180);
-        const y = centerY + radius * Math.sin((currentAngle * Math.PI) / 180);
-        logo.style.left = `${x}%`;
-        logo.style.top = `${y}%`;
-      }
     });
-  });
-};
+  };
+
   useEffect(() => {
     const timeline = anime.timeline({
       easing: 'easeOutExpo',
@@ -189,15 +319,19 @@ const Hero = ({ scrollToSection }) => {
     }, 1000);
 
     createFloatingLogos();
+    const cleanup3D = create3DAnimation();
 
+    return () => {
+      if (cleanup3D) cleanup3D();
+    };
   }, []);
 
   const handleButtonHover = (e, isEntering) => {
     const button = e.currentTarget;
-    
+
     if (isEntering) {
       button.addEventListener('mousemove', magneticEffect);
-      
+
       anime({
         targets: button,
         scale: 1.05,
@@ -206,7 +340,7 @@ const Hero = ({ scrollToSection }) => {
       });
     } else {
       button.removeEventListener('mousemove', magneticEffect);
-      
+
       anime({
         targets: button,
         translateX: 0,
@@ -245,7 +379,7 @@ const Hero = ({ scrollToSection }) => {
     ripple.style.left = `${x}px`;
     ripple.style.top = `${y}px`;
     ripple.className = 'ripple';
-    
+
     button.appendChild(ripple);
 
     anime({
@@ -263,7 +397,7 @@ const Hero = ({ scrollToSection }) => {
 
   const handleSocialHover = (e, isEntering) => {
     const icon = e.currentTarget;
-    
+
     if (isEntering) {
       anime({
         targets: icon,
@@ -284,36 +418,36 @@ const Hero = ({ scrollToSection }) => {
   };
 
   return (
-    <section 
-      id="home" 
-      className="relative min-h-screen flex items-center overflow-hidden bg-black text-white"
+    <section
+      id="home"
+      className="relative min-h-screen flex flex-col justify-between overflow-hidden bg-black text-white"
     >
-      {/* Content on the left */}
-      <div className="container mx-auto px-4 lg:px-8 relative z-20">
+      {/* Content at the top */}
+      <div className="container mx-auto px-4 lg:px-8 relative z-20 pt-20 lg:pt-32 -mt-6">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Left side - Text content */}
           <div ref={heroRef} className="hero-content">
-            <h1 
+            <h1
               ref={titleRef}
               className="hero-title text-5xl md:text-7xl lg:text-8xl font-satoshi font-bold text-white mb-6"
-              style={{ 
+              style={{
                 perspective: '1000px',
                 letterSpacing: '0.02em'
               }}
             >
               Pratheesh R
             </h1>
-            
-            <p 
+
+            <p
               ref={subtitleRef}
               className="text-lg md:text-xl text-gray-300 mb-8 max-w-xl leading-relaxed font-inter"
               style={{ opacity: 0 }}
             >
-              Professional React,Node js Developer with expertise in building scalable web applications and RESTful APIs. 
-              Experienced in full-stack development with React.js,Node.js,Laravel and modern web technologies.
+              Professional React, Node.js Developer with expertise in building scalable web applications and RESTful APIs.
+              Experienced in full-stack development with React.js, Node.js, Laravel and modern web technologies.
             </p>
-            
-            <div 
+
+            <div
               ref={buttonsRef}
               className="flex flex-col sm:flex-row gap-4 mb-8"
             >
@@ -327,7 +461,7 @@ const Hero = ({ scrollToSection }) => {
                 <Briefcase className="w-5 h-5" />
                 View My Work
               </button>
-              
+
               <button
                 onClick={(e) => handleButtonClick(e, () => scrollToSection('contact'))}
                 onMouseEnter={(e) => handleButtonHover(e, true)}
@@ -339,8 +473,8 @@ const Hero = ({ scrollToSection }) => {
                 Contact Me
               </button>
             </div>
-            
-            <div 
+
+            <div
               ref={socialsRef}
               className="flex space-x-6"
             >
@@ -355,7 +489,7 @@ const Hero = ({ scrollToSection }) => {
               >
                 <Github className="w-6 h-6 text-yellow group-hover:text-black transition-colors" />
               </a>
-              
+
               <a
                 href="https://www.linkedin.com/in/pratheesh-r-b8615726a/"
                 target="_blank"
@@ -367,7 +501,7 @@ const Hero = ({ scrollToSection }) => {
               >
                 <Linkedin className="w-6 h-6 text-yellow group-hover:text-black transition-colors" />
               </a>
-              
+
               <a
                 href="mailto:pratheeshravichandran@gmail.com"
                 className="social-icon p-3 border-2 border-yellow-500 bg-transparent rounded-full hover:bg-white transition-colors group"
@@ -380,14 +514,22 @@ const Hero = ({ scrollToSection }) => {
             </div>
           </div>
 
-          {/* Right side - Animations */}
+          {/* Right side - 3D Animation */}
           <div className="hidden lg:block relative h-[600px]">
             <div 
-              ref={animationRef} 
-              className="animation-container relative w-full h-full"
+              ref={threeDRef} 
+              className="w-full h-full"
             />
           </div>
         </div>
+      </div>
+
+      {/* Tech stack logos at the bottom */}
+      <div className="relative w-full h-32 md:h-40 overflow-hidden mb-8">
+        <div
+          ref={animationRef}
+          className="animation-container absolute bottom-0 left-0 h-full whitespace-nowrap"
+        />
       </div>
 
       <style jsx>{`
@@ -400,17 +542,14 @@ const Hero = ({ scrollToSection }) => {
         
         .animation-container {
           pointer-events: none;
+          display: flex;
+          align-items: center;
         }
+
         .floating-logo svg {
           width: 100%;
           height: 100%;
         }
-
-        .floating-logo {
-          will-change: transform;
-          transition: transform 0.3s ease;
-        }
-
       `}</style>
     </section>
   );
