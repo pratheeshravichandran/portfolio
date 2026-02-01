@@ -14,8 +14,17 @@ import { skills } from './data/skills';
 import { experiences } from './data/experiences';
 import { certificates } from './data/certificates';
 import { useTypingEffect } from './hooks/useTypingEffect';
-import { injectAnimations } from './styles/animations';
+import {
+  animateOnScroll,
+  setupCardAnimations,
+  animateSkills,
+  floatingAnimation,
+  magneticButton,
+  textReveal,
+  countUp
+} from './styles/animations';
 
+import NeonCursor from './styles/NeonCursor';
 const Portfolio = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
@@ -29,10 +38,7 @@ const Portfolio = () => {
 
   const typedText = useTypingEffect(jobTitles);
 
-  // Inject animations
-  useEffect(() => {
-    return injectAnimations();
-  }, []);
+ 
 
   const scrollToSection = (sectionId) => {
     const element = document.getElementById(sectionId);
@@ -45,6 +51,7 @@ const Portfolio = () => {
 
   return (
     <div className="min-h-screen bg-white text-gray-900">
+      <NeonCursor />
       <Navigation
         isMenuOpen={isMenuOpen}
         setIsMenuOpen={setIsMenuOpen}
@@ -53,11 +60,10 @@ const Portfolio = () => {
       />
       
       <Hero typedText={typedText} scrollToSection={scrollToSection} />
-      <About />
       <Skills skills={skills} />
       <Experience experiences={experiences} />
-      <Certificates certificates={certificates} />
       <Projects projects={projects} />
+      <About />
       <Contact />
       <Footer scrollToSection={scrollToSection} />
     </div>

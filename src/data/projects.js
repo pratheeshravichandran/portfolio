@@ -23,28 +23,4 @@ export const projects = [
     live: '#',
     category: 'Web App',
   },
-  {
-    title: 'Fullstack Staff Management System',
-    description: 'Developed a modern staff management platform with role-based controls, dynamic dashboards, and responsive design using React, Tailwind CSS, and Laravel.',
-    tech: ['React', 'Tailwind CSS', 'Laravel', 'MySQL'],
-    github: 'https://github.com/pratheeshravichandran/staff-management-system',
-    live: '#',
-    category: 'Web App',
-  },
-  {
-    title: 'Doctor-Patient Appointment System',
-    description: 'A web system to book and manage doctor appointments based on specialization, built with role-based access and secure validation.',
-    tech: ['PHP', 'Laravel', 'MySQL', 'Bootstrap'],
-    github: '#',
-    live: '#',
-    category: 'Web App',
-  },
-  {
-    title: 'Student Discipline Management System',
-    description: 'Designed and developed a fullstack web app to manage student behavior records and reports using core web technologies.',
-    tech: ['HTML', 'CSS', 'JavaScript', 'PHP', 'MySQL'],
-    github: '#',
-    live: '#',
-    category: 'Web App',
-  },
 ];
