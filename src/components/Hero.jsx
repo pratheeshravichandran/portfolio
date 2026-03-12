@@ -13,12 +13,10 @@ const Hero = ({ scrollToSection }) => {
   const animationRef = useRef(null);
   const threeDRef = useRef(null);
 
-  // Three.js 3D Animation
   const create3DAnimation = () => {
     const container = threeDRef.current;
     if (!container) return;
 
-    // Scene setup
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(
       75,
@@ -26,7 +24,7 @@ const Hero = ({ scrollToSection }) => {
       0.1,
       1000
     );
-    camera.position.z = 5;
+    camera.position.z = 8;
 
     const renderer = new THREE.WebGLRenderer({ 
       alpha: true, 
@@ -37,140 +35,236 @@ const Hero = ({ scrollToSection }) => {
     container.appendChild(renderer.domElement);
 
     // Lighting
-    const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.8);
     scene.add(ambientLight);
 
-    const pointLight1 = new THREE.PointLight(0x00ff88, 1);
+    const pointLight1 = new THREE.PointLight(0x61dafb, 2);
     pointLight1.position.set(5, 5, 5);
     scene.add(pointLight1);
 
-    const pointLight2 = new THREE.PointLight(0xff00ff, 1);
+    const pointLight2 = new THREE.PointLight(0x9333ea, 2);
     pointLight2.position.set(-5, -5, 5);
     scene.add(pointLight2);
 
-    // Create floating code symbols
-    const codeSymbols = [];
-    const symbols = ['{ }', '< >', '[ ]', '( )', '/>', '===', '=>', 'fn', 'var', 'let'];
+    // Create IDE code snippets with syntax highlighting
+    const codeSnippets = [
+      {
+        title: 'React Component',
+        code: [
+          'const App = () => {',
+          '  const [state, setState]',
+          '  = useState(false);',
+          '  return (',
+          '    <div className="app">',
+          '      <Header />',
+          '    </div>',
+          '  );',
+          '};'
+        ],
+        colors: ['#61dafb', '#c678dd', '#e5c07b', '#98c379', '#61dafb']
+      },
+      {
+        title: 'Node.js API',
+        code: [
+          'app.get("/api/users",',
+          '  async (req, res) => {',
+          '  const users = await',
+          '    User.find();',
+          '  res.json({',
+          '    success: true,',
+          '    data: users',
+          '  });',
+          '});'
+        ],
+        colors: ['#68a063', '#e5c07b', '#61dafb', '#c678dd', '#98c379']
+      },
+      {
+        title: 'TypeScript',
+        code: [
+          'interface User {',
+          '  id: number;',
+          '  name: string;',
+          '  email: string;',
+          '}',
+          'const getUser = async',
+          '  (id: number):',
+          '  Promise<User> => {',
+          '};'
+        ],
+        colors: ['#3178c6', '#e5c07b', '#61dafb', '#c678dd', '#98c379']
+      }
+    ];
+
+    // Create floating IDE windows
+    const ideWindows = [];
     
-    for (let i = 0; i < 30; i++) {
+    codeSnippets.forEach((snippet, index) => {
       const canvas = document.createElement('canvas');
       const context = canvas.getContext('2d');
-      canvas.width = 128;
-      canvas.height = 128;
-      
+      canvas.width = 512;
+      canvas.height = 512;
+
+      // Draw IDE window background
+      const gradient = context.createLinearGradient(0, 0, 0, canvas.height);
+      gradient.addColorStop(0, '#1e1e1e');
+      gradient.addColorStop(1, '#252526');
+      context.fillStyle = gradient;
+      context.fillRect(0, 0, canvas.width, canvas.height);
+
+      // Draw window title bar
+      context.fillStyle = '#323233';
+      context.fillRect(0, 0, canvas.width, 40);
+
+      // Draw window controls (dots)
+      const dotColors = ['#ff5f56', '#ffbd2e', '#27c93f'];
+      dotColors.forEach((color, i) => {
+        context.fillStyle = color;
+        context.beginPath();
+        context.arc(20 + i * 20, 20, 6, 0, Math.PI * 2);
+        context.fill();
+      });
+
+      // Draw title
+      context.fillStyle = '#cccccc';
+      context.font = 'bold 16px monospace';
+      context.fillText(snippet.title, 80, 25);
+
+      // Draw code with syntax highlighting
+      context.font = '18px "Fira Code", monospace';
+      snippet.code.forEach((line, lineIndex) => {
+        const y = 70 + lineIndex * 32;
+        const colorIndex = lineIndex % snippet.colors.length;
+        context.fillStyle = snippet.colors[colorIndex];
+        context.fillText(line, 20, y);
+      });
+
+      // Add cursor blink effect (random position)
+      const cursorLine = Math.floor(Math.random() * snippet.code.length);
+      const cursorY = 70 + cursorLine * 32;
       context.fillStyle = '#ffffff';
-      context.font = 'bold 48px monospace';
-      context.textAlign = 'center';
-      context.textBaseline = 'middle';
-      context.fillText(symbols[Math.floor(Math.random() * symbols.length)], 64, 64);
-      
+      context.fillRect(20 + snippet.code[cursorLine].length * 10.8, cursorY - 18, 2, 22);
+
+      // Create texture and plane
       const texture = new THREE.CanvasTexture(canvas);
-      const material = new THREE.SpriteMaterial({ 
+      const geometry = new THREE.PlaneGeometry(3, 3);
+      const material = new THREE.MeshStandardMaterial({ 
         map: texture, 
         transparent: true,
-        opacity: 0.6
+        opacity: 0.95,
+        side: THREE.DoubleSide,
+        emissive: new THREE.Color(0x111111),
+        emissiveIntensity: 0.3
       });
-      const sprite = new THREE.Sprite(material);
-      
-      sprite.position.set(
-        (Math.random() - 0.5) * 10,
-        (Math.random() - 0.5) * 10,
-        (Math.random() - 0.5) * 10
+      const plane = new THREE.Mesh(geometry, material);
+
+      // Position windows in a circular arrangement
+      const angle = (index / codeSnippets.length) * Math.PI * 2;
+      const radius = 4;
+      plane.position.set(
+        Math.cos(angle) * radius,
+        Math.sin(angle) * radius * 0.5,
+        Math.sin(angle) * 2
       );
-      sprite.scale.set(0.5, 0.5, 0.5);
-      
-      sprite.userData = {
-        velocity: {
-          x: (Math.random() - 0.5) * 0.02,
-          y: (Math.random() - 0.5) * 0.02,
-          z: (Math.random() - 0.5) * 0.02
-        }
+
+      plane.userData = {
+        rotationSpeed: 0.001 + Math.random() * 0.002,
+        floatSpeed: 0.0005 + Math.random() * 0.001,
+        floatOffset: Math.random() * Math.PI * 2
       };
-      
-      scene.add(sprite);
-      codeSymbols.push(sprite);
-    }
 
-    // Create central geometric shape (dodecahedron)
-    const geometry = new THREE.DodecahedronGeometry(1.5, 0);
-    const edges = new THREE.EdgesGeometry(geometry);
-    const lineMaterial = new THREE.LineBasicMaterial({ 
-      color: 0x00ffaa,
-      linewidth: 2
+      scene.add(plane);
+      ideWindows.push(plane);
     });
-    const wireframe = new THREE.LineSegments(edges, lineMaterial);
-    scene.add(wireframe);
 
-    // Create inner rotating cube
-    const cubeGeometry = new THREE.BoxGeometry(1, 1, 1);
-    const cubeEdges = new THREE.EdgesGeometry(cubeGeometry);
-    const cubeMaterial = new THREE.LineBasicMaterial({ 
-      color: 0xff00ff,
-      linewidth: 2
-    });
-    const cube = new THREE.LineSegments(cubeEdges, cubeMaterial);
-    scene.add(cube);
-
-    // Create particles
+    // Create particle system for code symbols
     const particlesGeometry = new THREE.BufferGeometry();
-    const particlesCount = 1000;
+    const particlesCount = 500;
     const positions = new Float32Array(particlesCount * 3);
     
     for (let i = 0; i < particlesCount * 3; i++) {
-      positions[i] = (Math.random() - 0.5) * 20;
+      positions[i] = (Math.random() - 0.5) * 25;
     }
     
     particlesGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
     const particlesMaterial = new THREE.PointsMaterial({
-      color: 0xffffff,
-      size: 0.02,
+      color: 0x61dafb,
+      size: 0.05,
       transparent: true,
-      opacity: 0.6
+      opacity: 0.4,
+      blending: THREE.AdditiveBlending
     });
     const particles = new THREE.Points(particlesGeometry, particlesMaterial);
     scene.add(particles);
 
+    // Create floating code symbols
+    const floatingSymbols = [];
+    const symbols = ['{ }', '< />', '[ ]', '=>', 'fn', 'const', 'async', 'import'];
+    
+    for (let i = 0; i < 20; i++) {
+      const symbolCanvas = document.createElement('canvas');
+      const symbolContext = symbolCanvas.getContext('2d');
+      symbolCanvas.width = 128;
+      symbolCanvas.height = 128;
+      
+      const colors = ['#61dafb', '#c678dd', '#e5c07b', '#98c379', '#56b6c2'];
+      symbolContext.fillStyle = colors[Math.floor(Math.random() * colors.length)];
+      symbolContext.font = 'bold 32px monospace';
+      symbolContext.textAlign = 'center';
+      symbolContext.textBaseline = 'middle';
+      symbolContext.fillText(symbols[Math.floor(Math.random() * symbols.length)], 64, 64);
+      
+      const texture = new THREE.CanvasTexture(symbolCanvas);
+      const material = new THREE.SpriteMaterial({ 
+        map: texture, 
+        transparent: true,
+        opacity: 0.5
+      });
+      const sprite = new THREE.Sprite(material);
+      
+      sprite.position.set(
+        (Math.random() - 0.5) * 15,
+        (Math.random() - 0.5) * 10,
+        (Math.random() - 0.5) * 10
+      );
+      sprite.scale.set(0.4, 0.4, 0.4);
+      
+      sprite.userData = {
+        floatSpeed: 0.001 + Math.random() * 0.002,
+        floatOffset: Math.random() * Math.PI * 2,
+        rotateSpeed: 0.005 + Math.random() * 0.01
+      };
+      
+      scene.add(sprite);
+      floatingSymbols.push(sprite);
+    }
+
     // Animation loop
-    let mouseX = 0;
-    let mouseY = 0;
-
-    const onMouseMove = (event) => {
-      mouseX = (event.clientX / window.innerWidth) * 2 - 1;
-      mouseY = -(event.clientY / window.innerHeight) * 2 + 1;
-    };
-
-    window.addEventListener('mousemove', onMouseMove);
+    let time = 0;
 
     const animate = () => {
       requestAnimationFrame(animate);
+      time += 0.01;
 
-      // Rotate main shapes
-      wireframe.rotation.x += 0.005;
-      wireframe.rotation.y += 0.005;
-
-      cube.rotation.x -= 0.01;
-      cube.rotation.y -= 0.01;
-
-      // Rotate particles
-      particles.rotation.y += 0.001;
-
-      // Animate code symbols
-      codeSymbols.forEach(sprite => {
-        sprite.position.x += sprite.userData.velocity.x;
-        sprite.position.y += sprite.userData.velocity.y;
-        sprite.position.z += sprite.userData.velocity.z;
-
-        // Boundary check
-        if (Math.abs(sprite.position.x) > 5) sprite.userData.velocity.x *= -1;
-        if (Math.abs(sprite.position.y) > 5) sprite.userData.velocity.y *= -1;
-        if (Math.abs(sprite.position.z) > 5) sprite.userData.velocity.z *= -1;
-
-        sprite.rotation.z += 0.01;
+      // Auto-rotate IDE windows
+      ideWindows.forEach((window, index) => {
+        window.rotation.y += window.userData.rotationSpeed;
+        window.rotation.x = Math.sin(time * window.userData.floatSpeed + window.userData.floatOffset) * 0.1;
+        window.position.y += Math.sin(time * window.userData.floatSpeed + window.userData.floatOffset) * 0.001;
       });
 
-      // Mouse interaction
-      camera.position.x += (mouseX * 0.5 - camera.position.x) * 0.05;
-      camera.position.y += (mouseY * 0.5 - camera.position.y) * 0.05;
+      // Rotate particles slowly
+      particles.rotation.y += 0.0005;
+      particles.rotation.x += 0.0003;
+
+      // Animate floating symbols
+      floatingSymbols.forEach(sprite => {
+        sprite.position.y += Math.sin(time * sprite.userData.floatSpeed + sprite.userData.floatOffset) * 0.002;
+        sprite.rotation.z += sprite.userData.rotateSpeed;
+      });
+
+      // Gentle camera rotation
+      camera.position.x = Math.sin(time * 0.1) * 2;
+      camera.position.y = Math.cos(time * 0.15) * 1;
       camera.lookAt(scene.position);
 
       renderer.render(scene, camera);
@@ -189,7 +283,6 @@ const Hero = ({ scrollToSection }) => {
 
     // Cleanup
     return () => {
-      window.removeEventListener('mousemove', onMouseMove);
       window.removeEventListener('resize', handleResize);
       container.removeChild(renderer.domElement);
     };
