@@ -36,7 +36,7 @@ const Skills = () => {
       icon: Server,
       title: 'Backend Development',
       color: '#34D399',
-      skills: ['Laravel', 'RESTful API', 'Eloquent ORM', 'Node.js', 'Express.js','Middleware', 'MVC Architecture','Cron Jobs','Migrations & Seeders','Validations']
+      skills: [ 'RESTful API', 'Eloquent ORM', 'Node.js', 'Express.js','Middleware', 'MVC Architecture','Cron Jobs','Migrations & Seeders','Validations']
     },
     {
       icon: Database,
