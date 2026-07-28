@@ -16,7 +16,6 @@ export const skills = [
     icon: Server,
     items: [
       { name: 'PHP', level: 88 },
-      { name: 'Laravel', level: 88 },
       { name: 'CodeIgniter', level: 85 },
       { name: 'MySQL', level: 80 },
     ],
