@@ -31,9 +31,9 @@ const Portfolio = () => {
 
   const jobTitles = [
     'Full Stack Developer',
-    'React JS Developer',
-    'PHP Laravel Developer',
-    'Backend Developer'
+    'Node.js & Backend Engineer',
+    'Real-Time Logistics Systems Developer',
+    'React.js Developer'
   ];
 
   const typedText = useTypingEffect(jobTitles);
