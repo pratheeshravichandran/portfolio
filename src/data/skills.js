@@ -1,43 +1,44 @@
-import { Monitor, Server, Code, Briefcase } from 'lucide-react';
+import { Monitor, Server, Code, Rocket, Database, Layers } from 'lucide-react';
 
 export const skills = [
+  {
+    name: 'Backend & Systems',
+    icon: Server,
+    items: [
+      { name: 'Node.js & Express', level: 95 },
+      { name: 'BullMQ & Redis Queues', level: 90 },
+      { name: 'REST APIs & Webhooks', level: 95 },
+      { name: 'WebSockets (Real-time)', level: 88 },
+    ],
+  },
+  {
+    name: 'Logistics & Geospatial',
+    icon: Rocket,
+    items: [
+      { name: 'OSRM Routing Engines', level: 90 },
+      { name: 'Uber H3 Geospatial Indexing', level: 88 },
+      { name: 'Multi-Carrier APIs (Shiprocket/Porter)', level: 92 },
+      { name: 'ONDC & Rail Parcel Integrations', level: 85 },
+    ],
+  },
   {
     name: 'Frontend Development',
     icon: Monitor,
     items: [
-      { name: 'React.js', level: 95 },
-      { name: 'Vue.js', level: 85 },
+      { name: 'React.js', level: 92 },
       { name: 'Tailwind CSS', level: 92 },
-      { name: 'HTML & CSS', level: 92 },
+      { name: 'TypeScript', level: 85 },
+      { name: 'Real-time Dashboards', level: 88 },
     ],
   },
   {
-    name: 'Backend Development',
-    icon: Server,
-    items: [
-      { name: 'PHP', level: 88 },
-      { name: 'CodeIgniter', level: 85 },
-      { name: 'MySQL', level: 80 },
-    ],
-  },
-  {
-    name: 'Development Tools',
+    name: 'Database & DevOps',
     icon: Code,
     items: [
-      { name: 'Git & GitHub', level: 80 },
-      { name: 'Linux', level: 50 },
-      { name: 'AWS', level: 35 },
-      { name: 'CI/CD', level: 52 },
-    ],
-  },
-  {
-    name: 'Office & Design',
-    icon: Briefcase,
-    items: [
-      { name: 'Excel', level: 80 },
-      { name: 'PowerPoint', level: 80 },
-      { name: 'Word', level: 85 },
-      { name: 'Adobe Photoshop', level: 82 },
+      { name: 'MySQL & Query Optimization', level: 90 },
+      { name: 'Docker Containerization', level: 85 },
+      { name: 'CI/CD Pipelines & Linux', level: 82 },
+      { name: 'Git & NPM Publishing', level: 88 },
     ],
   },
 ];
