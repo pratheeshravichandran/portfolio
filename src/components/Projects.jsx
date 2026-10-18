@@ -95,65 +95,85 @@ const Projects = ({ projects }) => {
               className="project-card bg-gray-900/80 backdrop-blur-sm rounded-2xl overflow-hidden border border-gray-800 hover:border-yellow-500 transition-all duration-300 hover:shadow-2xl hover:shadow-yellow-500/20 group"
               style={{ opacity: 0 }}
             >
-              <div className="p-6">
-                {/* Header with category and links */}
-                <div className="flex items-center justify-between mb-6">
-                  <div className="flex items-center gap-3">
-                    <div className="project-icon p-2 bg-yellow-500/10 rounded-lg">
-                      <FolderGit2 className="w-6 h-6 text-yellow-500" />
+              <div className="p-6 flex flex-col h-full justify-between">
+                <div>
+                  {/* Header with category and links */}
+                  <div className="flex items-center justify-between mb-6">
+                    <div className="flex items-center gap-3">
+                      <div className="project-icon p-2 bg-yellow-500/10 rounded-lg">
+                        <FolderGit2 className="w-6 h-6 text-yellow-500" />
+                      </div>
+                      <span className="px-3 py-1 bg-yellow-500/20 text-yellow-400 text-xs md:text-sm font-medium rounded-lg border border-yellow-500/30">
+                        {project.category}
+                      </span>
                     </div>
-                    <span className="px-3 py-1 bg-yellow-500/20 text-yellow-400 text-sm font-medium rounded-lg border border-yellow-500/30">
-                      {project.category}
-                    </span>
+                    <div className="flex gap-2">
+                      {project.github && project.github !== '#' && (
+                        <a
+                          href={project.github}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="p-2 bg-gray-800 rounded-lg hover:bg-yellow-500/20 hover:border-yellow-500 border border-gray-700 transition-all duration-300 group/icon"
+                          aria-label="View Source Code"
+                          title="View Source on GitHub"
+                        >
+                          <Github className="w-5 h-5 text-gray-400 group-hover/icon:text-yellow-500 transition-colors" />
+                        </a>
+                      )}
+                      {project.live && project.live !== '#' && (
+                        <a
+                          href={project.live}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="p-2 bg-gray-800 rounded-lg hover:bg-yellow-500/20 hover:border-yellow-500 border border-gray-700 transition-all duration-300 group/icon"
+                          aria-label="View Live Application"
+                          title="View Live Platform"
+                        >
+                          <ExternalLink className="w-5 h-5 text-gray-400 group-hover/icon:text-yellow-500 transition-colors" />
+                        </a>
+                      )}
+                    </div>
                   </div>
-                  <div className="flex gap-2">
-                    {project.live && (
-                      <a
-                        href={project.live}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="p-2 bg-gray-800 rounded-lg hover:bg-yellow-500/20 hover:border-yellow-500 border border-gray-700 transition-all duration-300 group/icon"
-                        aria-label="View Live Demo"
+                  
+                  {/* Subtitle & Title */}
+                  {project.subtitle && (
+                    <div className="text-xs font-semibold text-yellow-400/90 tracking-wide mb-1">
+                      {project.subtitle}
+                    </div>
+                  )}
+                  <h3 className="text-2xl font-bold text-white mb-3 group-hover:text-yellow-400 transition-colors">
+                    {project.title}
+                  </h3>
+                  <p className="text-gray-300 text-sm mb-5 leading-relaxed">
+                    {project.description}
+                  </p>
+                  
+                  {/* Tech stack */}
+                  <div className="flex flex-wrap gap-2 mb-4">
+                    {project.tech.map((tech, techIndex) => (
+                      <span
+                        key={techIndex}
+                        className="px-2.5 py-1 bg-gray-800/80 text-gray-300 text-xs rounded-lg border border-gray-700 hover:border-yellow-500 hover:text-yellow-400 transition-all duration-200"
                       >
-                        <ExternalLink className="w-5 h-5 text-gray-400 group-hover/icon:text-yellow-500 transition-colors" />
-                      </a>
-                    )}
+                        {tech}
+                      </span>
+                    ))}
                   </div>
-                </div>
-                
-                {/* Project title and description */}
-                <h3 className="text-2xl font-bold text-white mb-3 group-hover:text-yellow-400 transition-colors">
-                  {project.title}
-                </h3>
-                <p className="text-gray-400 mb-6 leading-relaxed line-clamp-3">
-                  {project.description}
-                </p>
-                
-                {/* Tech stack */}
-                <div className="flex flex-wrap gap-2">
-                  {project.tech.map((tech, techIndex) => (
-                    <span
-                      key={techIndex}
-                      className="px-3 py-1.5 bg-gray-800/80 text-gray-300 text-xs rounded-lg border border-gray-700 hover:border-yellow-500 hover:text-yellow-400 transition-all duration-200"
-                    >
-                      {tech}
-                    </span>
-                  ))}
                 </div>
 
-                {/* Optional: Project highlights */}
-                {project.highlights && project.highlights.length > 0 && (
-                  <div className="mt-4 pt-4 border-t border-gray-800">
-                    <ul className="space-y-1">
-                      {project.highlights.slice(0, 2).map((highlight, idx) => (
-                        <li key={idx} className="text-sm text-gray-400 flex items-start gap-2">
-                          <span className="text-yellow-500 mt-0.5">•</span>
-                          <span>{highlight}</span>
+                {/* Project highlights */}
+                {/* {project.highlights && project.highlights.length > 0 && (
+                  <div className="mt-2 pt-4 border-t border-gray-800/80">
+                    <ul className="space-y-1.5">
+                      {project.highlights.map((highlight, idx) => (
+                        <li key={idx} className="text-xs text-gray-400 flex items-start gap-2">
+                          <span className="text-yellow-500 mt-0.5 font-bold flex-shrink-0">•</span>
+                          <span className="leading-relaxed">{highlight}</span>
                         </li>
                       ))}
                     </ul>
                   </div>
-                )}
+                )} */}
               </div>
 
               {/* Bottom accent line */}
