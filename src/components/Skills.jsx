@@ -21,58 +21,58 @@ const Skills = () => {
 
   const skillCategories = [
     {
-      icon: Code,
-      title: 'Core Programming & Web',
-      color: '#FCD34D',
-      skills: ['JavaScript (ES6+)', 'HTML5 / CSS3', 'SQL']
+      icon: Server,
+      title: 'Backend & Systems Architecture',
+      color: '#34D399',
+      skills: ['Node.js', 'Express.js', 'RESTful APIs', 'BullMQ', 'Redis Queues', 'WebSockets', 'Webhooks', 'Microservices', 'API Error Handling']
+    },
+    {
+      icon: Rocket,
+      title: 'Logistics & Geospatial Tech',
+      color: '#FB923C',
+      skills: ['OSRM Routing Engine', 'Uber H3 Geospatial Indexing', 'ONDC Network', 'Rail Parcel Integration', 'Multi-Carrier APIs (Shiprocket, Porter, Qwqer, Adloggs)', 'Live Rider Tracking', 'Parallel Serviceability']
+    },
+    {
+      icon: Database,
+      title: 'Databases & In-Memory',
+      color: '#F472B6',
+      skills: ['MySQL', 'Redis', 'Prisma ORM', 'Database Indexing', 'Query Optimization', 'Rate Limiting']
     },
     {
       icon: Palette,
       title: 'Frontend Development',
       color: '#60A5FA',
-      skills: ['React.js', 'React Native (Basic)', 'Tailwind CSS', 'Axios', 'Tanstack Query', 'TypeScript', 'Responsive UI','Lazy Loading']
+      skills: ['React.js', 'Tailwind CSS', 'TypeScript', 'Axios', 'TanStack Query', 'Real-Time Dashboards', 'Responsive UI']
     },
     {
-      icon: Server,
-      title: 'Backend Development',
-      color: '#34D399',
-      skills: [ 'RESTful API', 'Eloquent ORM', 'Node.js', 'Express.js','Middleware', 'MVC Architecture','Cron Jobs','Migrations & Seeders','Validations']
-    },
-    {
-      icon: Database,
-      title: 'Databases',
-      color: '#F472B6',
-      skills: ['MySQL', 'Redis', 'Prisma ORM', 'Aiven','Rate Limiting']
+      icon: Settings,
+      title: 'DevOps & Infrastructure',
+      color: '#FCD34D',
+      skills: ['Docker', 'CI/CD Pipelines', 'Linux / VPS', 'PM2', 'Git & GitHub', 'NPM Publishing', 'Vercel']
     },
     {
       icon: Shield,
       title: 'Authentication & Security',
       color: '#A78BFA',
-      skills: ['JWT Authentication','Cookies','Laravel Sanctum', 'Role & Permissions', 'Session Auth', 'API Security']
-    },
-    {
-      icon: Rocket,
-      title: 'DevOps & Deployment',
-      color: '#FB923C',
-      skills: ['Github','Vercel', 'PM2', 'Apache', 'Linux', 'Environment Config', 'API Hosting']
+      skills: ['JWT Authentication', 'Role-Based Access (RBAC)', 'Session Auth', 'API Security', 'Webhook Verification']
     },
     {
       icon: TestTube,
-      title: 'Testing & Optimization',
+      title: 'Optimization & Testing',
       color: '#EC4899',
-      skills: ['API Debugging', 'Error Handling', 'Performance Optimization', 'Query Optimization']
+      skills: ['Asynchronous Retries', 'High-Volume Order Processing', 'Route Distance Calculations', 'Performance Tuning']
     },
     {
       icon: Brain,
       title: 'Machine Learning & Research',
       color: '#8B5CF6',
-      skills: ['NS-3 Simulation', 'SVR', 'Random Forest', 'CatBoost', 'Research Paper']
+      skills: ['NS-3 Network Simulation', 'SVR', 'Random Forest', 'CatBoost', 'WSN Research']
     },
     {
       icon: Trophy,
       title: 'Professional Highlights',
       color: '#FBBF24',
-      skills: ['Smart India Hackathon Winner', 'Freelance Developer', 'Production APIs', 'Project Lead']
+      skills: ['Smart India Hackathon 2024 Winner', 'Full SDLC Management', 'Multi-City Production Routing', 'NPM Package Author']
     }
   ];
 
@@ -197,9 +197,9 @@ const Skills = () => {
         {/* Stats section */}
         <div className="mt-20 grid grid-cols-2 md:grid-cols-4 gap-6">
           {[
-            { label: 'Technologies', value: '10+' },
-            { label: 'Projects', value: '3+' },
-            { label: 'Experience', value: '1+ Years' },
+            { label: 'Technologies & Tools', value: '15+' },
+            { label: 'Projects & Platforms', value: '5+' },
+            { label: 'Carrier Integrations', value: '6+' },
             { label: 'Hackathon Wins', value: '1' }
           ].map((stat, index) => (
             <div 
