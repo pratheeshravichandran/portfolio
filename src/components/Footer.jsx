@@ -37,10 +37,6 @@ const Footer = ({ scrollToSection }) => {
             </div>
           </div>
         </div>
-        
-        <div className="pt-8 border-t border-gray-800 text-center text-gray-400">
-          <p>&copy; 2024 Pratheesh R. All rights reserved. Built with React and passion for excellence.</p>
-        </div>
       </div>
     </footer>
   );
