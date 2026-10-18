@@ -536,8 +536,7 @@ const Hero = ({ scrollToSection }) => {
               className="text-lg md:text-xl text-gray-300 mb-8 max-w-xl leading-relaxed font-inter"
               style={{ opacity: 0 }}
             >
-              Professional React, Node.js Developer with expertise in building scalable web applications and RESTful APIs.
-              Experienced in full-stack development with React.js, Node.js, Laravel and modern web technologies.
+              Full Stack & Backend Developer specializing in scalable, real-time logistics and delivery platforms with Node.js, React.js, and MySQL. Experienced in multi-carrier aggregations, distributed BullMQ queues, OSRM routing, and geospatial indexing.
             </p>
 
             <div
