@@ -123,19 +123,13 @@ const About = () => {
             </h3>
             <div className="space-y-4 text-gray-300 leading-relaxed">
               <p>
-                I'm a dedicated PHP Laravel Developer with extensive experience in building real-world solutions. 
-                My journey began with a deep interest in backend development, which has evolved into full-stack expertise 
-                combining Laravel APIs with modern frontend technologies like React.js.
+                I am a passionate Full Stack & Backend Developer specializing in scalable, real-time logistics and delivery architectures. With core expertise across <span className="text-yellow-400 font-medium">Node.js, React.js, and MySQL</span>, I build resilient production platforms that bridge complex server-side business logic with high-performance user interfaces.
               </p>
               <p>
-                Throughout my career at companies like CyberTechNinja and VDigitalize, I've successfully delivered 
-                over 13 project modules including staff management systems, appointment booking platforms, and 
-                real-time APIs. My approach focuses on clean, maintainable code and efficient database design.
+                At <span className="text-white font-medium">Alab Technologies Pvt Ltd</span>, I architect and maintain mission-critical logistics systems including platforms like <em>Green Drive Delivery</em> and <em>Delivar</em>. My implementations range from multi-carrier aggregations (<span className="text-yellow-400">ONDC, Shiprocket, Porter, Qwqer, Adloggs, Indian Railways Rail Parcel</span>) to parallel serviceability checks and automated dispatch routing.
               </p>
               <p>
-                I specialize in creating scalable web applications, implementing secure authentication systems, 
-                and optimizing database performance. My experience spans from individual freelance projects to 
-                collaborative team environments, always maintaining high standards of code quality and delivery.
+                My focus centers on low-latency systems and geospatial processing: deploying self-hosted <span className="text-yellow-400">OSRM routing services</span> across major metropolitan cities, implementing <span className="text-yellow-400">Uber H3 hexagonal indexing</span> for rider dispatch and demand analytics, and engineering distributed job queues using <span className="text-yellow-400">Redis and BullMQ</span> with live WebSocket tracking.
               </p>
             </div>
           </div>
@@ -148,23 +142,23 @@ const About = () => {
               <div ref={competenciesRef} className="grid grid-cols-2 gap-4">
                 <div className="competency-card bg-gray-800/50 backdrop-blur-sm rounded-lg p-6 text-center border border-gray-700 hover:border-yellow-500 transition-colors duration-300">
                   <Server className="icon-float w-10 h-10 text-yellow-500 mx-auto mb-3" />
-                  <h4 className="font-semibold text-white mb-1">Backend</h4>
-                  <p className="text-sm text-gray-400">Node js, Laravel, Redis</p>
-                </div>
-                <div className="competency-card bg-gray-800/50 backdrop-blur-sm rounded-lg p-6 text-center border border-gray-700 hover:border-yellow-500 transition-colors duration-300">
-                  <Monitor className="icon-float w-10 h-10 text-yellow-500 mx-auto mb-3" />
-                  <h4 className="font-semibold text-white mb-1">Frontend</h4>
-                  <p className="text-sm text-gray-400">React, TypeScript, Tailwind</p>
+                  <h4 className="font-semibold text-white mb-1">Backend & Queues</h4>
+                  <p className="text-sm text-gray-400">Node.js, Redis, BullMQ</p>
                 </div>
                 <div className="competency-card bg-gray-800/50 backdrop-blur-sm rounded-lg p-6 text-center border border-gray-700 hover:border-yellow-500 transition-colors duration-300">
                   <Globe className="icon-float w-10 h-10 text-yellow-500 mx-auto mb-3" />
-                  <h4 className="font-semibold text-white mb-1">Database</h4>
-                  <p className="text-sm text-gray-400">MySQL, Vps, Aws</p>
+                  <h4 className="font-semibold text-white mb-1">Logistics & Geo</h4>
+                  <p className="text-sm text-gray-400">OSRM, Uber H3, ONDC</p>
+                </div>
+                <div className="competency-card bg-gray-800/50 backdrop-blur-sm rounded-lg p-6 text-center border border-gray-700 hover:border-yellow-500 transition-colors duration-300">
+                  <Monitor className="icon-float w-10 h-10 text-yellow-500 mx-auto mb-3" />
+                  <h4 className="font-semibold text-white mb-1">Frontend & Real-time</h4>
+                  <p className="text-sm text-gray-400">React.js, WebSockets</p>
                 </div>
                 <div className="competency-card bg-gray-800/50 backdrop-blur-sm rounded-lg p-6 text-center border border-gray-700 hover:border-yellow-500 transition-colors duration-300">
                   <Code className="icon-float w-10 h-10 text-yellow-500 mx-auto mb-3" />
-                  <h4 className="font-semibold text-white mb-1">Tools</h4>
-                  <p className="text-sm text-gray-400">Git, Linux, AWS</p>
+                  <h4 className="font-semibold text-white mb-1">Database & DevOps</h4>
+                  <p className="text-sm text-gray-400">MySQL, Docker, CI/CD</p>
                 </div>
               </div>
             </div>
