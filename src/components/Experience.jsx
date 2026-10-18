@@ -151,25 +151,44 @@ const Experience = ({ experiences }) => {
 
                   {/* Description if exists */}
                   {exp.description && (
-                    <p className="mt-4 text-gray-300 leading-relaxed">
+                    <p className="mt-4 text-gray-300 leading-relaxed text-sm md:text-base">
                       {exp.description}
                     </p>
                   )}
 
                   {/* Key achievements if exists */}
-                  {exp.achievements && exp.achievements.length > 0 && (
-                    <div className="mt-4">
-                      <h4 className="text-sm font-semibold text-yellow-400 mb-2">Key Achievements:</h4>
-                      <ul className="space-y-1">
+                  {/* {exp.achievements && exp.achievements.length > 0 && (
+                    <div className="mt-6 text-left">
+                      <h4 className="text-sm font-semibold text-yellow-400 mb-3 flex items-center gap-2">
+                        <span className="w-2 h-2 rounded-full bg-yellow-500 inline-block"></span>
+                        <span>Key Implementations & Contributions:</span>
+                      </h4>
+                      <ul className="space-y-2.5">
                         {exp.achievements.map((achievement, idx) => (
-                          <li key={idx} className="text-sm text-gray-400 flex items-start gap-2">
-                            <span className="text-yellow-500 mt-1">•</span>
-                            <span>{achievement}</span>
+                          <li key={idx} className="text-sm text-gray-300 flex items-start gap-2.5">
+                            <span className="text-yellow-500 mt-1 flex-shrink-0 text-xs">◆</span>
+                            <span className="leading-relaxed">{achievement}</span>
                           </li>
                         ))}
                       </ul>
                     </div>
-                  )}
+                  )} */}
+
+                  {/* Tech stack tags */}
+                  {/* {exp.skills && exp.skills.length > 0 && (
+                    <div className="mt-6 pt-4 border-t border-gray-800 text-left">
+                      <div className="flex flex-wrap gap-1.5">
+                        {exp.skills.map((skill, sIdx) => (
+                          <span
+                            key={sIdx}
+                            className="px-2.5 py-1 bg-yellow-500/10 text-yellow-400 text-xs font-medium rounded-md border border-yellow-500/20 hover:border-yellow-500/50 transition-colors"
+                          >
+                            {skill}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  )} */}
                 </div>
               </div>
               
